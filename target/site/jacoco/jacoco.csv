@@ -1,0 +1,7 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+finder,com.bookshelf.finder,FinderApplication,5,3,0,0,2,1,1,1,1,1
+finder,com.bookshelf.finder.controller,BookController,4,3,0,0,1,1,1,1,1,1
+finder,com.bookshelf.finder.controller,UserController,32,3,0,0,8,1,2,1,2,1
+finder,com.bookshelf.finder.entity,BookEntity,31,0,0,0,13,0,9,0,9,0
+finder,com.bookshelf.finder.entity,UserEntity,7,38,0,0,3,16,2,11,2,11
+finder,com.bookshelf.finder.service,UserService,25,3,0,0,8,1,1,1,1,1
