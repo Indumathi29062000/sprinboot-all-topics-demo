@@ -1,3 +1,4 @@
-# sprinboot-all-topics-demo
+# springboot-all-topics-demo
 
 ~configured mysql,mongodb,redis as per requirement
+~configured actuator endpoint
