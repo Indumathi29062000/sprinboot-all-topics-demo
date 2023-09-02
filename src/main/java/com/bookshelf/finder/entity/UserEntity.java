@@ -1,6 +1,4 @@
 package com.bookshelf.finder.entity;
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +9,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="user")
 public class UserEntity {
-	@Id
+     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer sno;
 
