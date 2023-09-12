@@ -11,7 +11,11 @@ public class UserEntityTest {
 	void setup() {
 		userEntity =new UserEntity();
 	}
-	
+	@Test
+	void testSno() {
+		userEntity.setSno(1);
+		assertEquals(1, userEntity.getSno());
+	}
 	@Test
 	void  testGetName() {
 		userEntity.setName("Testname");

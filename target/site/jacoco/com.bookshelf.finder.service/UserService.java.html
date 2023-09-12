@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">finder</a> &gt; <a href="index.source.html" class="el_package">com.bookshelf.finder.service</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.bookshelf.finder.service;
-
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.bookshelf.finder.entity.UserEntity;
 import com.bookshelf.finder.repository.UserRepository;
 
 @Service
-<span class="fc" id="L11">public class UserService {</span>
+<span class="fc" id="L10">public class UserService {</span>
+<span class="fc" id="L11">	Logger logger = LogManager.getLogger(UserService.class);</span>
 
 	@Autowired
 	 UserRepository userRepository;
 
 	public void registerUser(String name, String userId, String email, String password,String confirmPassword) {
-<span class="nc" id="L17">		UserEntity userEntity=new UserEntity();</span>
-<span class="nc" id="L18">		userEntity.setName(name);</span>
-<span class="nc" id="L19">		userEntity.setUserId(userId);</span>
-<span class="nc" id="L20">        userEntity.setEmail(email);</span>
-<span class="nc" id="L21">        userEntity.setPassword(password);</span>
-<span class="nc" id="L22">        userEntity.setConfirmPassword(confirmPassword);</span>
-<span class="nc" id="L23">		userRepository.save(userEntity);		</span>
-<span class="nc" id="L24">	}</span>
+
+<span class="nc" id="L18">		UserEntity userEntity=new UserEntity();</span>
+<span class="nc" id="L19">		userEntity.setName(name);</span>
+<span class="nc" id="L20">		userEntity.setUserId(userId);</span>
+<span class="nc" id="L21">        userEntity.setEmail(email);</span>
+<span class="nc" id="L22">        userEntity.setPassword(password);</span>
+<span class="nc" id="L23">        userEntity.setConfirmPassword(confirmPassword);</span>
+<span class="nc" id="L24">	    logger.info(&quot;saved a user in mysql db sucessfully&quot;);</span>
+<span class="nc" id="L25">		userRepository.save(userEntity);</span>
+<span class="nc" id="L26">	}</span>
 	 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

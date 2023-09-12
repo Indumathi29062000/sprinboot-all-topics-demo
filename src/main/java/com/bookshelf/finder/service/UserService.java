@@ -1,4 +1,6 @@
 package com.bookshelf.finder.service;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bookshelf.finder.entity.UserEntity;
@@ -6,6 +8,8 @@ import com.bookshelf.finder.repository.UserRepository;
 
 @Service
 public class UserService {
+	Logger logger = LogManager.getLogger(UserService.class);
+
 	@Autowired
 	 UserRepository userRepository;
 
@@ -17,8 +21,8 @@ public class UserService {
         userEntity.setEmail(email);
         userEntity.setPassword(password);
         userEntity.setConfirmPassword(confirmPassword);
+	    logger.info("saved a user in mysql db sucessfully");
 		userRepository.save(userEntity);
-
 	}
 	 
 }
