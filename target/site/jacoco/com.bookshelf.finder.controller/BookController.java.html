@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,8 @@ import com.bookshelf.finder.entity.BookEntity;
 import com.bookshelf.finder.repository.BookRepository;
 
 @Controller
-<span class="fc" id="L26">public class BookController {</span>
-<span class="fc" id="L27">	Logger logger = LogManager.getLogger(BookController.class);</span>
+<span class="fc" id="L27">public class BookController {</span>
+<span class="fc" id="L28">	Logger logger = LogManager.getLogger(BookController.class);</span>
 
 	@Autowired 
 	 private  BookRepository bookRepository;
@@ -33,53 +34,53 @@ import com.bookshelf.finder.repository.BookRepository;
 	@Cacheable(&quot;books&quot;) //it will cache the data in the name books
 	@ResponseBody //to get data in json format without any html page
        public List&lt;BookEntity&gt; getAllBooks() {
-<span class="nc" id="L36">	    logger.info(&quot;Displaying all books that are in mongodb collection.&quot;);</span>
-<span class="nc" id="L37">        return bookRepository.findAll();</span>
+<span class="nc" id="L37">	    logger.info(&quot;Displaying all books that are in mongodb collection.&quot;);</span>
+<span class="nc" id="L38">        return bookRepository.findAll();</span>
 }
 	@GetMapping(&quot;/getlocalbook/{bookName}&quot;)
 	public ResponseEntity&lt;BookEntity&gt; getByBookName (@PathVariable String bookName) {
-<span class="nc" id="L41">	    BookEntity getBook = bookRepository.findByBookName(bookName);</span>
-<span class="nc" id="L42">	    logger.info(&quot;Displaying the specific books based on bookname&quot;);</span>
+<span class="nc" id="L42">	    BookEntity getBook = bookRepository.findByBookName(bookName);</span>
+<span class="nc" id="L43">	    logger.info(&quot;Displaying the specific books based on bookname&quot;);</span>
 
-<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (getBook != null) {</span>
-<span class="nc" id="L45">	        return ResponseEntity.status(HttpStatus.OK).body(getBook);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (getBook != null) {</span>
+<span class="nc" id="L46">	        return ResponseEntity.status(HttpStatus.OK).body(getBook);</span>
 	    } else {
-<span class="nc" id="L47">	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);</span>
+<span class="nc" id="L48">	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);</span>
 	    }
 	}
 	
 	@PostMapping(&quot;/createlocalbook&quot;)
 	public ResponseEntity&lt;BookEntity&gt; createBook(@RequestBody BookEntity bookEntity) {
-<span class="nc" id="L53">	    BookEntity savedBook = bookRepository.save(bookEntity);</span>
-<span class="nc" id="L54">	    logger.info(&quot;create a book in mongodb&quot;);</span>
-<span class="nc" id="L55">	    return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);</span>
+<span class="nc" id="L54">	    BookEntity savedBook = bookRepository.save(bookEntity);</span>
+<span class="nc" id="L55">	    logger.info(&quot;create a book in mongodb&quot;);</span>
+<span class="nc" id="L56">	    return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);</span>
 	}
 	
 	@DeleteMapping(&quot;/deletelocalbook/{bookName}&quot;)
 	public ResponseEntity&lt;String&gt; deleteBook (@PathVariable String  bookName) {
-<span class="nc" id="L60">		bookRepository.deleteByBookName(bookName);</span>
-<span class="nc" id="L61">	    logger.info(&quot;delete a book based on bookname&quot;);</span>
-<span class="nc" id="L62">		return ResponseEntity.status(HttpStatus.OK).body(bookName);</span>
+<span class="nc" id="L61">		bookRepository.deleteByBookName(bookName);</span>
+<span class="nc" id="L62">	    logger.info(&quot;delete a book based on bookname&quot;);</span>
+<span class="nc" id="L63">		return ResponseEntity.status(HttpStatus.OK).body(bookName);</span>
 	}
 	
 	@PutMapping(&quot;/updatelocalbook/{bookId}&quot;)
 	public ResponseEntity&lt;Void&gt; updateBook(@PathVariable String bookId, @RequestBody BookEntity updatedBook) {
-<span class="nc" id="L67">	    updatedBook.setBookId(bookId);</span>
-<span class="nc" id="L68">	    bookRepository.save(updatedBook);</span>
-<span class="nc" id="L69">	    logger.info(&quot;update a book based on bookid&quot;);</span>
-<span class="nc" id="L70">	    return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L68">	    updatedBook.setBookId(bookId);</span>
+<span class="nc" id="L69">	    bookRepository.save(updatedBook);</span>
+<span class="nc" id="L70">	    logger.info(&quot;update a book based on bookid&quot;);</span>
+<span class="nc" id="L71">	    return ResponseEntity.noContent().build();</span>
 
 	}
-	
+	@Profile(&quot;dev&quot;)
 	@GetMapping(&quot;/books/search&quot;)
 	@Cacheable(&quot;googlebooks&quot;)
     public ResponseEntity&lt;Object&gt; searchBooks(@RequestParam String query) {
-<span class="nc" id="L77">        String apiKey = &quot;AIzaSyAgPIkCnMzvEQpIOQtOmidYiT7BX8fPn2w&quot;;</span>
-<span class="nc" id="L78">        String apiUrl = &quot;https://www.googleapis.com/books/v1/volumes?q=&quot; + query + &quot;&amp;key=&quot; + apiKey;</span>
-<span class="nc" id="L79">        RestTemplate restTemplate = new RestTemplate(); // send an HTTP GET request to the Google Books API URL</span>
-<span class="nc" id="L80">        ResponseEntity&lt;Object&gt; response = restTemplate.getForEntity(apiUrl, Object.class); //response entity</span>
-<span class="nc" id="L81">	    logger.info(&quot;get a book from google book api/ redis cache&quot;);</span>
-<span class="nc" id="L82">        return response;</span>
+<span class="nc" id="L78">        String apiKey = &quot;AIzaSyAgPIkCnMzvEQpIOQtOmidYiT7BX8fPn2w&quot;;</span>
+<span class="nc" id="L79">        String apiUrl = &quot;https://www.googleapis.com/books/v1/volumes?q=&quot; + query + &quot;&amp;key=&quot; + apiKey;</span>
+<span class="nc" id="L80">        RestTemplate restTemplate = new RestTemplate(); // send an HTTP GET request to the Google Books API URL</span>
+<span class="nc" id="L81">        ResponseEntity&lt;Object&gt; response = restTemplate.getForEntity(apiUrl, Object.class); //response entity</span>
+<span class="nc" id="L82">	    logger.info(&quot;get a book from google book api/ redis cache&quot;);</span>
+<span class="nc" id="L83">        return response;</span>
     }
 
 }

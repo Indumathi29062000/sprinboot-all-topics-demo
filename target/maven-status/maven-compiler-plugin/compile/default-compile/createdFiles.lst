@@ -1,8 +1,8 @@
-com\bookshelf\finder\entity\BookEntity.class
 com\bookshelf\finder\repository\UserRepository.class
+com\bookshelf\finder\controller\BookController.class
+com\bookshelf\finder\FinderApplication.class
+com\bookshelf\finder\entity\BookEntity.class
 com\bookshelf\finder\controller\UserController.class
 com\bookshelf\finder\service\UserService.class
-com\bookshelf\finder\controller\BookController.class
 com\bookshelf\finder\entity\UserEntity.class
-com\bookshelf\finder\FinderApplication.class
 com\bookshelf\finder\repository\BookRepository.class
